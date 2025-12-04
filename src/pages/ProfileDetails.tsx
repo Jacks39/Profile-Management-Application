@@ -10,13 +10,12 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchProfiles } from '../store/profileSlice';
 import { RootState } from '../store';
 
 const ProfileDetails: React.FC = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { profiles, currentProfileId, loading, error } = useSelector((state: RootState) => state.profile);
 
   useEffect(() => {
