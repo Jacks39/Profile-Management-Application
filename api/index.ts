@@ -123,6 +123,6 @@ app.delete('/profiles/:id', (req: Request, res: Response) => {
   });
 });
 
-export default (req: VercelRequest, res: VercelResponse) => {
-  return app(req, res);
+export default (_req: VercelRequest, res: VercelResponse) => {
+  return app(_req, res);
 };
