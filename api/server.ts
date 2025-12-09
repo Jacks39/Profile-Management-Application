@@ -21,7 +21,7 @@ let profiles: Profile[] = [];
 // Routes
 
 // GET all profiles
-app.get('/api/profiles', (req: Request, res: Response) => {
+app.get('/api/profiles', (_req: Request, res: Response) => {
   res.json({
     success: true,
     data: profiles,
