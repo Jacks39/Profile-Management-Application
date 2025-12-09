@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 
 const app = express();
@@ -19,10 +19,8 @@ interface Profile {
 
 let profiles: Profile[] = [];
 
-// Routes
-
 // GET all profiles
-app.get('/profiles', (req: Request, res: Response) => {
+app.get('/', (_req: VercelRequest, res: VercelResponse) => {
   res.json({
     success: true,
     data: profiles,
@@ -31,7 +29,7 @@ app.get('/profiles', (req: Request, res: Response) => {
 });
 
 // GET single profile by ID
-app.get('/profiles/:id', (req: Request, res: Response) => {
+app.get('/:id', (req: VercelRequest, res: VercelResponse) => {
   const { id } = req.params;
   const profile = profiles.find(p => p.id === id);
 
@@ -50,7 +48,7 @@ app.get('/profiles/:id', (req: Request, res: Response) => {
 });
 
 // POST - Create new profile
-app.post('/profiles', (req: Request, res: Response) => {
+app.post('/', (req: VercelRequest, res: VercelResponse) => {
   const { firstName, lastName, email, age } = req.body;
 
   if (!firstName || !lastName || !email) {
@@ -78,7 +76,7 @@ app.post('/profiles', (req: Request, res: Response) => {
 });
 
 // PUT - Update profile
-app.put('/profiles/:id', (req: Request, res: Response) => {
+app.put('/:id', (req: VercelRequest, res: VercelResponse) => {
   const { id } = req.params;
   const { firstName, lastName, email, age } = req.body;
 
@@ -104,7 +102,7 @@ app.put('/profiles/:id', (req: Request, res: Response) => {
 });
 
 // DELETE - Delete profile
-app.delete('/profiles/:id', (req: Request, res: Response) => {
+app.delete('/:id', (req: VercelRequest, res: VercelResponse) => {
   const { id } = req.params;
   const index = profiles.findIndex(p => p.id === id);
 
@@ -123,6 +121,4 @@ app.delete('/profiles/:id', (req: Request, res: Response) => {
   });
 });
 
-export default (_req: VercelRequest, res: VercelResponse) => {
-  return app(_req, res);
-};
+export default app;
